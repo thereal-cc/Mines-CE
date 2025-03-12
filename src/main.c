@@ -29,11 +29,11 @@ int main(void)
             update_game(&game);
             check_win(&game);
             draw_game(&game);
-
-            delay(16);
         } else {
             draw_result(&game);
         }
+
+        delay(16); // 16.67 ms
     }
 
     gfx_End();

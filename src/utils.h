@@ -19,7 +19,6 @@
 #define SCREEN_COLS 10
 
 typedef uint8_t u8;
-typedef uint16_t u16;
 typedef int8_t i8;
 
 #endif

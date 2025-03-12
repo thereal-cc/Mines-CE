@@ -1,4 +1,4 @@
-# MinesCE
+# Minesweeper
 
 Minesweeper ported to the TI-84 Plus CE, written in C using the [CEdev toolchain](https://ce-programming.github.io/toolchain/).
 

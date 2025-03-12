@@ -135,13 +135,6 @@ void draw_game(game_t *game)
                     gfx_FillRectangle(i * TILE_SIZE + 1, j * TILE_SIZE + 1, TILE_SIZE - 1, TILE_SIZE - 1);
                 }
             }
-
-            /* Debug
-            else if (game->tiles[i][j].has_mine) {
-                gfx_SetColor(0x9A);
-                gfx_FillRectangle(i * TILE_SIZE + 1, j * TILE_SIZE + 1, TILE_SIZE - 1, TILE_SIZE - 1);
-            }
-            */
            
             gfx_SetColor(0xFF);
         }
@@ -152,11 +145,11 @@ void draw_game(game_t *game)
     gfx_Rectangle(game->cursor.x * TILE_SIZE, game->cursor.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     
     // Draw Mine Count and Flagged Count
-    gfx_SetTextXY(0, GFX_LCD_HEIGHT - 15); 
+    gfx_SetTextXY(TILE_SIZE, GFX_LCD_HEIGHT - TILE_SIZE); 
     gfx_PrintString("Mines: ");
     gfx_PrintUInt(game->mine_count, 2); 
 
-    gfx_SetTextXY(TILE_SIZE * 8, GFX_LCD_HEIGHT - 15); 
+    gfx_SetTextXY(GFX_LCD_WIDTH - (TILE_SIZE * 4), GFX_LCD_HEIGHT - TILE_SIZE); 
     gfx_PrintString("Flags: ");
     gfx_PrintUInt(game->flagged_tiles, 2); 
 

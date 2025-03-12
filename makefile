@@ -2,7 +2,7 @@
 # Makefile Options
 # ----------------------------
 
-NAME = MinesCE
+NAME = Mines
 ICON = icon.png
 DESCRIPTION = "Minesweeper for TI 84+ CE"
 COMPRESSED = YES

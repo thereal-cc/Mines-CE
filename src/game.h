@@ -10,7 +10,6 @@
 #include "gfx/global_palette.h"
 
 enum STATE {
-    TITLE,
     PLAYING,
     LOST,
     WON,
