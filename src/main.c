@@ -29,6 +29,8 @@ int main(void)
             update_game(&game);
             check_win(&game);
             draw_game(&game);
+
+            delay(16);
         } else {
             draw_result(&game);
         }

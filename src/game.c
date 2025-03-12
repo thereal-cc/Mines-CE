@@ -63,19 +63,10 @@ void init_game(game_t *game)
 void update_game(game_t *game)
 {
     // Cursor Directions
-    if (kb_IsDown(kb_KeyUp) && game->cursor.y > 0) {
-        game->cursor.y--;
-        delay(100);
-    } else if (kb_IsDown(kb_KeyDown) && game->cursor.y < SCREEN_COLS - 1) {
-        game->cursor.y++;
-        delay(100);
-    } else if (kb_IsDown(kb_KeyLeft) && game->cursor.x > 0) {
-        game->cursor.x--;
-        delay(100);
-    } else if (kb_IsDown(kb_KeyRight) && game->cursor.x < SCREEN_ROWS - 1) {
-        game->cursor.x++;
-        delay(100);
-    }
+    if (kb_IsDown(kb_KeyUp) && game->cursor.y > 0) game->cursor.y--;
+    else if (kb_IsDown(kb_KeyDown) && game->cursor.y < SCREEN_COLS - 1) game->cursor.y++;
+    else if (kb_IsDown(kb_KeyLeft) && game->cursor.x > 0) game->cursor.x--;
+    else if (kb_IsDown(kb_KeyRight) && game->cursor.x < SCREEN_ROWS - 1) game->cursor.x++;
     
     // Plus (Flag Tile)
     else if (kb_IsDown(kb_KeyAdd) && (game->flagged_tiles < game->mine_count)) {
@@ -85,7 +76,6 @@ void update_game(game_t *game)
         if (!game->tiles[x][y].flagged) {
             game->flagged_tiles++;
             game->tiles[x][y].flagged = true;
-            delay(100);
         }
     } else if (kb_IsDown(kb_KeyClear) && (game->flagged_tiles > 0)) {
         u8 x = game->cursor.x;
@@ -94,7 +84,6 @@ void update_game(game_t *game)
         if (game->tiles[x][y].flagged) {
             game->flagged_tiles--;
             game->tiles[x][y].flagged = false;
-            delay(100);
         }
     }
         
