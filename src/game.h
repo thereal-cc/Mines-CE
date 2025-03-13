@@ -10,6 +10,7 @@
 #include "gfx/global_palette.h"
 
 enum STATE {
+    TITLE,
     PLAYING,
     LOST,
     WON,
@@ -39,10 +40,11 @@ typedef struct game_t
     u8 flagged_tiles;
 } game_t;
 
-void init_game(game_t *game);
+void init_game(game_t *game, u8 selection);
 void update_game(game_t *game);
 void check_win(game_t *game);
 void draw_game(game_t *game);
 void draw_result(game_t *game);
+void title_screen(v2 *cursorPos, game_t *game);
 
 #endif

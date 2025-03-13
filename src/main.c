@@ -5,8 +5,6 @@ int main(void)
     game_t game;
     kb_key_t key;
 
-    init_game(&game);
-
     // Set Up Graphics & Sprites
     gfx_Begin();
     gfx_SetPalette(global_palette, sizeof_global_palette, 0);
@@ -14,25 +12,33 @@ int main(void)
     gfx_SetDrawBuffer();
 
     // Set Up Text
-    gfx_SetTextScale(1, 1);
+    gfx_SetTextScale(3, 3);
     gfx_SetTextTransparentColor(0);
     gfx_SetTextBGColor(0);
     gfx_SetTextFGColor(0xFF);
 
+    v2 title_cursor;
+    game.state = TITLE;
+
     while (game.state != QUIT)
     {
-        // Quit Game (State Persistant)
         kb_Scan();
         if (kb_IsDown(kb_KeyDel)) game.state = QUIT;
 
-        if (game.state == PLAYING) {
-            update_game(&game);
-            check_win(&game);
-            draw_game(&game);
-        } else {
-            draw_result(&game);
+        switch (game.state) {
+            case TITLE:
+                title_screen(&title_cursor, &game);
+                break;
+            case PLAYING:
+                update_game(&game);
+                check_win(&game);
+                draw_game(&game);
+                break;
+            default:
+                draw_result(&game);
+                break;
         }
-
+    
         delay(16); // 16.67 ms
     }
 

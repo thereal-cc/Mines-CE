@@ -8,13 +8,13 @@ void PrintCentered(const char *str)
                       (GFX_LCD_HEIGHT - 8) / 2);
 }
 
-void init_game(game_t *game) 
+void init_game(game_t *game, u8 selection) 
 {
     srandom(time(NULL));
     game->state = PLAYING;
     game->cursor.x = 0;
     game->cursor.y = 0;
-    game->mine_count = EASY_MINE_COUNT;
+    game->mine_count = selection;
     game->flagged_tiles = 0;
     
     memset(game->tiles, 0, sizeof(game->tiles));
@@ -57,7 +57,9 @@ void init_game(game_t *game)
             game->tiles[i][j].mine_amount = mineCount;
         }
     }
-    
+
+    // Reset Text Scaling
+    gfx_SetTextScale(1, 1);
 }
 
 void update_game(game_t *game)
@@ -171,4 +173,43 @@ void draw_result(game_t *game) {
     }
 
     gfx_SwapDraw();
+}
+
+
+void title_screen(v2 *cursorPos, game_t *game)
+{
+    const char *title = "Minesweeper";
+    const char *options[] = {"Easy", "Medium", "Hard"};
+    const u8 mineCounts[] = {EASY_MINE_COUNT, MEDIUM_MINE_COUNT, HARD_MINE_COUNT}; // Mine counts for difficulties
+    const u8 numOptions = 3;
+
+    // Handle input
+    if (kb_IsDown(kb_KeyUp) && cursorPos->y > 0) cursorPos->y--;
+    else if (kb_IsDown(kb_KeyDown) && cursorPos->y < numOptions - 1) cursorPos->y++;
+    else if (kb_IsDown(kb_KeyEnter)) {
+        init_game(game, mineCounts[cursorPos->y]); // Pass selected difficulty
+        delay(100);
+        return;
+    }
+    
+    gfx_ZeroScreen();
+    gfx_SetTextFGColor(0xFF);
+    gfx_PrintStringXY(title, (GFX_LCD_WIDTH - gfx_GetStringWidth(title)) / 2, (30));
+    
+    // Draw options
+    for (u8 i = 0; i < numOptions; i++) {
+        gfx_SetTextXY((GFX_LCD_WIDTH - gfx_GetStringWidth(options[i])) / 2, 100 + (i *30));
+        gfx_PrintString(options[i]);
+            
+        if (cursorPos->y == i) {
+            gfx_SetTextXY((GFX_LCD_WIDTH - gfx_GetStringWidth(">")) / 2 - 100, 100 + (i * 30));
+            gfx_PrintString(">");
+        }
+    }
+        
+    gfx_SwapDraw();
+        
+        
+    delay(100); // Small delay to prevent fast key repeat
+    
 }
