@@ -1,5 +1,5 @@
 # Minesweeper
-
+ 
 Minesweeper ported to the TI-84 Plus CE, written in C using the [CEdev toolchain](https://ce-programming.github.io/toolchain/).
 
 ## Controls
@@ -34,3 +34,6 @@ This project is released under the MIT License. Feel free to modify and distribu
 ## Acknowledgments
 
 - CEdev Toolchain developers  
+
+## Screenshots  
+![Gameplay Screenshot](screenshots/Screenshot_2025-03-12_at_7.55.54_PM.jpg) 
